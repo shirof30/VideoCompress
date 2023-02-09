@@ -53,9 +53,11 @@
       <source src="{{ url_for('compressed_video', filename='compressed.mp4') }}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <p> FFMPEG COMMAND LINE : {{cmd}}</p>
+
+    <p>FFMPEG COMMAND LINE : {{cmd}}</p>
     <p>PSNR: {{ psnr }}</p>
-    <p>VMAF: {{ vmaf }}</p>
+    <p>input size: {{ insize }} bytes</p>
+    <p>output size: {{ outsize }} bytes</p>
     <p>Compression ratio: {{ ratio }}</p>
 
     <a href="{{ url_for('compressed_video', filename='compressed.mp4') }}" download>
