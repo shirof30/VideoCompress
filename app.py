@@ -97,7 +97,7 @@ def get_comp_ratio(input_file, output_file):
 def index():
     return render_template("index.html")
 
-@app.route("/compress_video", methods=["GET", "POST"])
+@app.route("/compress_video", methods=[ "POST"])
 def compress_video_handler():
 
     coutput_file =os.path.join(VIDEOS_DIR, "original.mp4")
@@ -138,11 +138,11 @@ def compress_video_handler():
         return render_template("compressed.html", psnr=psnr, ratio=ratio, cmd=cmd_string,insize=in_size,outsize=out_size)
     return render_template("index.html")
 
-@app.route('/videos/<path:filename>')
+@app.route('/<path:filename>')
 def original_video(filename):
     return send_file(os.path.join(VIDEOS_DIR, filename), as_attachment=True)
 
-@app.route('/videos/<path:filename>')
+@app.route('/<path:filename>')
 def compressed_video(filename):
     return send_file(os.path.join(VIDEOS_DIR, filename), as_attachment=True)
 

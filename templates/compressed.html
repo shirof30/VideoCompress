@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="shortcut icon" href="http://www.example.com/myicon.ico" />
     <title>Compression Results</title>
     <style>
       body {
@@ -42,17 +43,20 @@
   <body>
     <h1>Compression Results</h1>
 
+
+    <h2>Compressed Video</h2>
+    <video width="1280" height="720" controls>
+      <source src="compressed.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
     <h2>Original Video</h2>
     <video width="1280" height="720" controls>
       <source src="{{ url_for('original_video', filename='original.mp4') }}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
 
-    <h2>Compressed Video</h2>
-    <video width="1280" height="720" controls>
-      <source src="{{ url_for('compressed_video', filename='compressed.mp4') }}" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+
 
     <p>FFMPEG COMMAND LINE : {{cmd}}</p>
     <p>PSNR: {{ psnr }}</p>
@@ -60,8 +64,11 @@
     <p>output size: {{ outsize }} bytes</p>
     <p>Compression ratio: {{ ratio }}</p>
 
-    <a href="{{ url_for('compressed_video', filename='compressed.mp4') }}" download>
+    <a href="compressed.mp4" download>
       Download Compressed Video
+    </a>
+    <a href="/index.html" download>
+      return to beginning
     </a>
   </body>
 </html>
