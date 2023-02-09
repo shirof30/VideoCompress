@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compression Results</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #f2f2f2;
+      }
+      
+      h1 {
+        text-align: center;
+        margin: 40px 0;
+      }
+      
+      h2 {
+        text-align: center;
+        margin: 20px 0;
+      }
+      
+      video {
+        display: block;
+        margin: 0 auto;
+      }
+      
+      p {
+        text-align: center;
+        margin: 20px 0;
+      }
+      
+      a {
+        display: block;
+        text-align: center;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Compression Results</h1>
+
+    <h2>Original Video</h2>
+    <video width="1280" height="720" controls>
+      <source src="{{ url_for('original_video', filename='original.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <h2>Compressed Video</h2>
+    <video width="1280" height="720" controls>
+      <source src="{{ url_for('compressed_video', filename='compressed.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p> FFMPEG COMMAND LINE : {{cmd}}</p>
+    <p>PSNR: {{ psnr }}</p>
+    <p>VMAF: {{ vmaf }}</p>
+    <p>Compression ratio: {{ ratio }}</p>
+
+    <a href="{{ url_for('compressed_video', filename='compressed.mp4') }}" download>
+      Download Compressed Video
+    </a>
+  </body>
+</html>
