@@ -26,7 +26,7 @@ def compress_video(input_file, codec, rc, bitrate, extra_flag):
     subprocess.run(cmd, check=True)
     
     # Return the ffmpeg command as a string
-    #return ' '.join(cmd)
+    return ' '.join(cmd)
 
 def compress_video_cqp(input_file, codec, rc,qp,bitrate,extra_flag):
     output_file = os.path.join(VIDEOS_DIR, "compressed.mp4")
@@ -55,7 +55,7 @@ def compress_video_cqp(input_file, codec, rc,qp,bitrate,extra_flag):
     else:
         cmd_global = 'ffmpeg -i ' + "input.mp4" + ' -c:v ' + codec + ' -qp ' + qp  + extra_flag + ' -y '  + ' ' + "output.mp4" 
     subprocess.run(cmd, check=True)
-    #return cmd_global
+    return cmd_global
 
 def get_video_stats(input_file, output_file):
     psnr_log_file = "psnr.log"
@@ -84,13 +84,16 @@ def get_video_stats(input_file, output_file):
             else:
                 print("psnr_avg not found in string")
     psnr_avg_total = psnr_sum / psnr_count
+    psnr_avg_total = round(psnr_avg_total, 2)
     return psnr_avg_total
 
 def get_comp_ratio(input_file, output_file):
     input_file_size = os.path.getsize(input_file)
     output_file_size = os.path.getsize(output_file)
     compression_ratio = input_file_size / output_file_size
-    return compression_ratio,input_file_size,output_file_size
+    
+    returnval = round(compression_ratio, 2)
+    return returnval,input_file_size,output_file_size
 
 
 @app.route("/")
@@ -125,15 +128,15 @@ def compress_video_handler():
         rc = request.form.get("RC")
         if rc != 'cbr':
             qp = request.form.get("qp")
-            compress_video_cqp(input_file, codec,rc,qp,bitrate,extra_flag)
+            cmd = compress_video_cqp(input_file, codec,rc,qp,bitrate,extra_flag)
         else:
-            compress_video(input_file, codec,rc,bitrate,extra_flag)
+            cmd = compress_video(input_file, codec,rc,bitrate,extra_flag)
         
         output_file = os.path.join(VIDEOS_DIR, "compressed.mp4")
 
         psnr= get_video_stats(input_file, output_file)
         ratio,in_size,out_size = get_comp_ratio(input_file, output_file)
-        cmd_string = "cmd_global"
+        cmd_string = cmd
 
         return render_template("compressed.html", psnr=psnr, ratio=ratio, cmd=cmd_string,insize=in_size,outsize=out_size)
     return render_template("index.html")
