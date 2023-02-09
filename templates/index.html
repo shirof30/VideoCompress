@@ -52,6 +52,14 @@
         </select>
       </p>
       <p>
+        <label for="RC">Rate Control mode:</label>
+        <select id="RC" name="RC">
+          <option value="cbr">CBR</option>
+          <option value="vbr">VBR</option>
+          <option value="cqp">CQP</option>
+        </select>
+      </p>      
+      <p>
         <label for="bitrate">Bitrate:</label>
         <select id="bitrate" name="bitrate">
           <option value="256000">256 Kbps</option>
@@ -60,6 +68,10 @@
           <option value="2000000">2 Mbps</option>
           <option value="4000000">4 Mbps</option>
         </select>
+      </p>
+      <p>
+        <label for="qp">QP value (only for cqp):</label>
+         <input type="text" id="qp" name="qp">
       </p>
       <p>
         <label for="extra_flag">Extra Flags:</label>
