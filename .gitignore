@@ -1,0 +1,6 @@
+# Ignore generatedvideos
+videos/*
+
+# Ignore psnr_log
+psnr.log
+
